@@ -51,24 +51,75 @@ how long each time out needs to be */
 
 /* using callbacks */
 
-const delayColorChange = (newColor, delay, doNext) => {
-    setTimeout(() => {
-        document.body.style.backgroundColor = newColor;
-        //in case it's undefined
-        doNext && doNext();
-    }, delay)
+// const delayColorChange = (newColor, delay, doNext) => {
+//     setTimeout(() => {
+//         document.body.style.backgroundColor = newColor;
+//         //in case it's undefined
+//         doNext && doNext();
+//     }, delay)
+// };
+
+// delayColorChange('red', 1000, () => {
+//     delayColorChange('orange', 1000, () => {
+//         delayColorChange('yellow', 1000, () => {
+//             delayColorChange('green', 1000, () => {
+//                 delayColorChange('blue', 1000, () => {
+//                     delayColorChange('purple', 1000)
+//                 })
+//             })
+//         })
+//     })
+// });
+
+/* Callback hell: passing a ton of callbacks with lots of nesting 
+    - typical example is requests where you would pass in two callbacks, one for
+       success and one for failure
+*/
+
+// const fakeRequest = (url) => {
+//     return new Promise ((resolve, reject) => {
+//         const rand = Math.random();
+//         setTimeout(() => {
+//             if (rand < 0.7) {
+//                 resolve();
+//             } 
+//             reject('Request error');
+//         }, 1000)
+//     })
+// };
+
+// fakeRequest('google.com/dogs/1')
+// .then(() => {
+//     console.log('Done with request');
+// })
+// .catch((err) => {
+//     console.log('Oh no!', err)
+// })
+
+const delayColorChange = (color, delay) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            document.body.style.backgroundColor = color;
+            resolve();
+        }, delay)
+    })
 };
 
-delayColorChange('red', 1000, () => {
-    delayColorChange('orange', 1000, () => {
-        delayColorChange('yellow', 1000, () => {
-            delayColorChange('green', 1000, () => {
-                delayColorChange('blue', 1000, () => {
-                    delayColorChange('purple', 1000)
-                })
-            })
-        })
-    })
-});
+// delayColorChange('red', 1000)
+//     .then(() => delayColorChange('orange', 1000))
+//     .then(() => delayColorChange('yellow', 1000))
+//     .then(() => delayColorChange('green', 1000))
+//     .then(() => delayColorChange('blue', 1000))
+//     .then(() => delayColorChange('purple', 1000))
 
-/* Callback hell: passing a ton of callbacks with lots of nesting */
+
+async function rainbow() {
+    await delayColorChange('red', 1000)
+    await delayColorChange('orange', 1000)
+    await delayColorChange('yellow', 1000)
+    await delayColorChange('green', 1000)
+    await delayColorChange('blue', 1000)
+    await delayColorChange('purple', 1000)
+};
+
+rainbow().then(() => console.log('End of rainbow :)'))
