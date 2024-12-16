@@ -113,6 +113,7 @@ const delayColorChange = (color, delay) => {
 //     .then(() => delayColorChange('purple', 1000))
 
 
+// async + await simplifies promises even further
 async function rainbow() {
     await delayColorChange('red', 1000)
     await delayColorChange('orange', 1000)
@@ -122,4 +123,5 @@ async function rainbow() {
     await delayColorChange('purple', 1000)
 };
 
+// waits until the end of rainbow, then prints
 rainbow().then(() => console.log('End of rainbow :)'))
