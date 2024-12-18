@@ -125,3 +125,5 @@ async function rainbow() {
 
 // waits until the end of rainbow, then prints
 rainbow().then(() => console.log('End of rainbow :)'))
+
+/* AJAX */
